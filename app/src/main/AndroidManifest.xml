@@ -36,8 +36,12 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
+            <meta-data
+                android:name="com.google.android.geo.API_KEY"
+                android:value="AIzaSyAVEcLEuihmQobta2SljpjUfSBG3nxMAUA"/>
 
+        </activity>
+        <activity android:name=".Activity.MapActivity" />
         <service android:name=".Services.RoomLocationService" />
         <service android:name=".Services.RoomUsageService" />
         <service android:name=".Services.AzureDBService" />

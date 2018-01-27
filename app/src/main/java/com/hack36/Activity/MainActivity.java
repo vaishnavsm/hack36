@@ -12,6 +12,7 @@ import android.widget.Toast;
 import com.backendless.Backendless;
 import com.hack36.Helpers.AppAuth;
 import com.hack36.Helpers.AzureDBHelper;
+import com.hack36.Helpers.Panic;
 import com.hack36.Helpers.UsageStatsHelper;
 import com.hack36.Models.MyDatabase;
 import com.hack36.Helpers.NetworkHelper;
@@ -147,11 +148,13 @@ public class MainActivity extends AppCompatActivity {
 
         // Necessary for login
         Backendless.initApp( this, BACKENDLESS_APP_ID, BACKENDLESS_APP_KEY);
+
+        // For Panic Button
+        Panic.initApplication();
     }
 
     @Override
     public void onResume(){
         super.onResume();
-
     }
 }
