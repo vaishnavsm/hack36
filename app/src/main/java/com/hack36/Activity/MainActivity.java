@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Toast;
 
+import com.backendless.Backendless;
 import com.hack36.Helpers.AppAuth;
 import com.hack36.Helpers.AzureDBHelper;
 import com.hack36.Helpers.UsageStatsHelper;
@@ -22,7 +23,12 @@ import com.hack36.Services.RoomUsageService;
 import com.hack36.UI.LoginFragment;
 import com.hack36.R;
 import com.hack36.UI.MenuFragment;
+import com.hack36.Utils.Constants;
 
+import java.util.Collections;
+
+import static com.hack36.Utils.Constants.BACKENDLESS_APP_ID;
+import static com.hack36.Utils.Constants.BACKENDLESS_APP_KEY;
 import static com.hack36.Utils.Constants.PERMISSIONS;
 import static com.hack36.Utils.Constants.PERMISSIONS_REQUEST;
 import static com.hack36.Helpers.UsageStatsHelper.usagePermissionGranted;
@@ -86,8 +92,17 @@ public class MainActivity extends AppCompatActivity {
 
             if (AppAuth.getInstance().isLoggedIn()) {
                 initServices();
-                ft.add(R.id.fragment_container, new MenuFragment());
-                ft.commit();
+
+                // Check whether we had a notification or not
+                if (SharedPrefHelper.getInstance().getBoolean(Constants.PUSH_NOTIFICATION,false)){
+                    startActivity(new Intent(MainActivity.this, MapActivity.class));
+
+                    // Also set the S.Helper to false for now
+                    SharedPrefHelper.getInstance().put(Constants.PUSH_NOTIFICATION,false);
+                }else {
+                    ft.add(R.id.fragment_container, new MenuFragment());
+                    ft.commit();
+                }
             } else {
                 ft.add(R.id.fragment_container, new LoginFragment());
                 ft.commit();
@@ -129,6 +144,9 @@ public class MainActivity extends AppCompatActivity {
         AzureDBHelper.getInstance(this);
         AppAuth.getInstance(this);
         NetworkHelper.getInstance(this);
+
+        // Necessary for login
+        Backendless.initApp( this, BACKENDLESS_APP_ID, BACKENDLESS_APP_KEY);
     }
 
     @Override

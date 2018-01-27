@@ -4,12 +4,12 @@
     android:weightSum="4"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="match_parent">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_weight="4"
+        android:background="@drawable/background"
         android:layout_height="0dp">
         <com.hack36.UI.RippleBackground
             android:id="@+id/rippleLayout"
@@ -23,7 +23,7 @@
             android:layout_width="wrap_content"
             android:layout_centerInParent="true"
             android:layout_height="wrap_content"
-            app:srcCompat="@drawable/heart"/>
+            android:src="@drawable/heart"/>
 
     </RelativeLayout>
 
@@ -41,7 +41,7 @@
             android:layout_width="0dp"
             android:gravity="center"
             android:padding="10dp"
-            android:background="#4c6bda"
+            android:background="@color/dark_violet"
             android:layout_height="match_parent">
             <TextView
                 android:layout_width="90dp"
@@ -65,7 +65,7 @@
             android:layout_width="0dp"
             android:gravity="center"
             android:padding="10dp"
-            android:background="#3253ce"
+            android:background="@color/med_violet"
             android:layout_height="match_parent">
             <TextView
                 android:layout_width="90dp"
