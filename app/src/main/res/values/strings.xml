@@ -1,3 +1,17 @@
 <resources>
     <string name="app_name">Hack36</string>
+    <string name="open_app_usage_setting">Open Apps with usage access settings</string>
+    <string name="last_time_used">"Last time used: "</string>
+    <string name="time_span">"Time span: "</string>
+    <string name="explanation_access_to_appusage_is_not_enabled">Failed to retrieve app usage
+        statistics. You may need to enable access
+        for this app through Settings > Security > Apps with usage access
+    </string>
+
+    <string-array name="action_list">
+        <item>Daily</item>
+        <item>Weekly</item>
+        <item>Monthly</item>
+        <item>Yearly</item>
+    </string-array>
 </resources>
