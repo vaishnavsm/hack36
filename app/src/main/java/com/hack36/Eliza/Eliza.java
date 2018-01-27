@@ -61,7 +61,9 @@ public class Eliza {
     ReasembList lastReasemb;
     boolean finished = false;
     public Eliza(Context context) {
+        clearScript();
         this.assetManager = context.getAssets();
+        readScript();
     }
 
     public void dispose() {

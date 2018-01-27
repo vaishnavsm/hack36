@@ -131,4 +131,10 @@ public class MainActivity extends AppCompatActivity {
         AppAuth.getInstance(this);
         NetworkHelper.getInstance(this);
     }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+
+    }
 }
