@@ -19,9 +19,9 @@ import com.hack36.Services.AzureDBService;
 import com.hack36.Services.RoomLocationService;
 import com.hack36.Services.MyTimer;
 import com.hack36.Services.RoomUsageService;
-import com.hack36.UI.ListDetailsFragment;
 import com.hack36.UI.LoginFragment;
 import com.hack36.R;
+import com.hack36.UI.MenuFragment;
 
 import static com.hack36.Utils.Constants.PERMISSIONS;
 import static com.hack36.Utils.Constants.PERMISSIONS_REQUEST;
@@ -86,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
 
             if (AppAuth.getInstance().isLoggedIn()) {
                 initServices();
-                ft.add(R.id.fragment_container, new ListDetailsFragment());
+                ft.add(R.id.fragment_container, new MenuFragment());
                 ft.commit();
             } else {
                 ft.add(R.id.fragment_container, new LoginFragment());

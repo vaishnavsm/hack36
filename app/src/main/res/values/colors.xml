@@ -3,4 +3,11 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+
+    <!-- Chat Fragment -->
+    <color name="send_button_background">#00f</color>
+    <color name="sent_message">#00f</color>
+    <color name="sent_message_color">#fff</color>
+    <color name="received_message">#fff</color>
+    <color name="received_message_color">#121212</color>
 </resources>
