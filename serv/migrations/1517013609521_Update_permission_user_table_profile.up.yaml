@@ -1,0 +1,14 @@
+- args:
+    permission:
+      columns:
+      - types
+      - hasura_id
+      - longitude
+      - latitude
+      - id
+      filter:
+        hasura_id:
+          $eq: X-HASURA-USER-ID
+    role: user
+    table: profile
+  type: create_select_permission

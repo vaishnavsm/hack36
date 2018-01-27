@@ -1,0 +1,32 @@
+https://api.backendless.com/45958D6A-36CC-C65F-FF4C-97701CC22A00/AB2779C9-5CF1-3A23-FFB4-3CA9C64CA000
+
+{User}:
+[Register]
+POST
+https://api.backendless.com/45958D6A-36CC-C65F-FF4C-97701CC22A00/AB2779C9-5CF1-3A23-FFB4-3CA9C64CA000/users/register
+email password name
+[Login]
+POST
+https://api.backendless.com/45958D6A-36CC-C65F-FF4C-97701CC22A00/AB2779C9-5CF1-3A23-FFB4-3CA9C64CA000/users/login
+login password
+return: user-token
+<NOTE: Send back user-token to the server to remain logged in as a HEADER>
+[Validate]
+GET
+https://api.backendless.com/45958D6A-36CC-C65F-FF4C-97701CC22A00/AB2779C9-5CF1-3A23-FFB4-3CA9C64CA000/users/isvalidusertoken/<TOKEN>
+returns: true or false
+[Logout]
+GET
+https://api.backendless.com/45958D6A-36CC-C65F-FF4C-97701CC22A00/AB2779C9-5CF1-3A23-FFB4-3CA9C64CA000/users/logout
+
+{Profile}:
+Methods: POST, GET
+https://api.backendless.com/45958D6A-36CC-C65F-FF4C-97701CC22A00/AB2779C9-5CF1-3A23-FFB4-3CA9C64CA000/data/profile
+user-token should be a HEADER
+
+To GET of particular user:
+https://api.backendless.com/45958D6A-36CC-C65F-FF4C-97701CC22A00/AB2779C9-5CF1-3A23-FFB4-3CA9C64CA000/data/profile?where=ownerId%3D'<OWNER ID>'
+
+PUT:
+https://api.backendless.com/45958D6A-36CC-C65F-FF4C-97701CC22A00/AB2779C9-5CF1-3A23-FFB4-3CA9C64CA000/data/profile/<OBJECT ID>
+You can PUT "coordinates"={"___class":"GeoPoint", "latitude":LATITUDE, "longitude":LONGITUDE, "categories":[CATEGORIES (OPTIONAL)]}}

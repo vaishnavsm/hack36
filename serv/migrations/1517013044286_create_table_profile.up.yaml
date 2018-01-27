@@ -1,0 +1,8 @@
+- args:
+    sql: CREATE TABLE "profile"("hasura_id" integer NOT NULL DEFAULT -1, "types" json
+      , "longitude" numeric  DEFAULT 0.0000, "latitude" numeric  DEFAULT 0.0000, "id"
+      serial NOT NULL, PRIMARY KEY ("id") )
+  type: run_sql
+- args:
+    name: profile
+  type: add_existing_table_or_view
