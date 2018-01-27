@@ -31,6 +31,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import needle.Needle;
+
+import static com.hack36.Utils.Utils.myLog;
+
 public class MapActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private LatLng targetLocation;
@@ -47,6 +51,9 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
 
         // Constants.PUSH_NOTIFICATION already set false in MainActivity
         String pos = SharedPrefHelper.getInstance().getString(Constants.PUSH_MSG_LOCATION);
+
+        myLog("Location at MapActivity: "+pos);
+
         try {
             JSONObject jsonObject = new JSONObject(pos);
             targetLocation = new LatLng(Double.valueOf(jsonObject.getString("latitude")),Double.valueOf(jsonObject.getString("longitude")));
@@ -70,30 +77,38 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
 
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(targetLocation, 8));
 
-        Location currPosition = MyDatabase.getInstance(getApplicationContext())
-                .locationDao().getAllAfter(System.currentTimeMillis()/1000 - 60*60).get(0); // 1 hr old location
-
-        OkHttpClient client = new OkHttpClient();
-        final Request request = new Request.Builder()
-                .url("https://maps.googleapis.com/maps/api/directions/json"+
-                        "?origin="+currPosition.getLatitude()+","+currPosition.getLongitude()+
-                        "&destination="+targetLocation.latitude+","+targetLocation.longitude+
-                        "&key="+getResources().getString(R.string.google_maps_key))
-                .get()
-                .addHeader("Cache-Control", "no-cache")
-                .build();
-
-        client.newCall(request).enqueue(new Callback() {
+        Needle.onBackgroundThread().execute(new Runnable() {
             @Override
-            public void onFailure(Request request, IOException e) {
-                Toast.makeText(getApplicationContext(),"Calling Maps failed",Toast.LENGTH_LONG).show();
-            }
+            public void run() {
+                Location currPosition = MyDatabase.getInstance(getApplicationContext())
+                        .locationDao().getAllAfter(System.currentTimeMillis()/1000 - 60*60).get(0); // 1 hr old location
 
-            @Override
-            public void onResponse(Response response) throws IOException {
-                updateMap(response.body().string());
+                OkHttpClient client = new OkHttpClient();
+                final Request request = new Request.Builder()
+                        .url("https://maps.googleapis.com/maps/api/directions/json"+
+                                "?origin="+currPosition.getLatitude()+","+currPosition.getLongitude()+
+                                "&destination="+targetLocation.latitude+","+targetLocation.longitude+
+                                "&key="+getResources().getString(R.string.google_maps_key))
+                        .get()
+                        .addHeader("Cache-Control", "no-cache")
+                        .build();
+
+                myLog("Location mMap at MapActivity: "+currPosition.getLongitude()+","+currPosition.getLatitude());
+
+                client.newCall(request).enqueue(new Callback() {
+                    @Override
+                    public void onFailure(Request request, IOException e) {
+                        Toast.makeText(getApplicationContext(),"Calling Maps failed",Toast.LENGTH_LONG).show();
+                    }
+
+                    @Override
+                    public void onResponse(Response response) throws IOException {
+                        updateMap(response.body().string());
+                    }
+                });
             }
         });
+
     }
 
     void updateMap(final String response){

@@ -12,6 +12,8 @@ import com.hack36.Helpers.SharedPrefHelper;
 import com.hack36.R;
 import com.hack36.Utils.Constants;
 
+import static com.hack36.Utils.Utils.myLog;
+
 public class MyPushService extends BackendlessPushService {
 
     @Override
@@ -40,6 +42,8 @@ public class MyPushService extends BackendlessPushService {
                 // Store in SP for later use
                 SharedPrefHelper.getInstance().put(Constants.PUSH_NOTIFICATION,true);
                 SharedPrefHelper.getInstance().put(Constants.PUSH_MSG_LOCATION,message);
+
+                myLog("Location at Service: "+message);
 
                 // Play a pop sound
                 MediaPlayer mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.catchy_pop);
