@@ -1,6 +1,5 @@
 package com.hack36.Helpers;
 
-
 import android.app.AppOpsManager;
 import android.app.Application;
 import android.app.usage.UsageStats;
@@ -18,9 +17,12 @@ import java.util.List;
 
 import com.hack36.Models.UsageInstance;
 import needle.Needle;
-import needle.UiRelatedTask;
 
 public class UsageStatsHelper {
+
+    private static UsageStatsHelper instance;
+    private static UsageStatsManager usageStatsManager;
+
     /**
      * The {@link Comparator} to sort a collection of {@link com.hack36.Models.UsageInstance} sorted by the
      * last time the app was used in the descendant order.
@@ -45,6 +47,25 @@ public class UsageStatsHelper {
         }
     }
 
+    private UsageStatsHelper(Context context){
+        usageStatsManager = (UsageStatsManager) context.getSystemService(Context.USAGE_STATS_SERVICE);
+    }
+
+    public static UsageStatsHelper getInstance(Context context) {
+        if (instance == null)
+            instance = new UsageStatsHelper(context);
+
+        return instance;
+    }
+
+    public static UsageStatsHelper getInstance(){
+        return instance;
+    }
+
+    public UsageStatsManager getManager(){
+        return usageStatsManager;
+    }
+
     // Will recreate the app too
     public static void storeYearOldData(final Application application, final UsageStatsManager manager){
 
@@ -52,7 +73,8 @@ public class UsageStatsHelper {
             @Override
             public void run() {
                 Calendar calendar = Calendar.getInstance();
-                calendar.add(Calendar.YEAR, -1);
+                calendar.add(Calendar.HOUR,-48);
+//                calendar.add(Calendar.YEAR, -1);
 
                 Context context = application.getApplicationContext();
 
