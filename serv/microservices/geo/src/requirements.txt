@@ -3,3 +3,16 @@ requests
 gunicorn
 
 # add new packages one per each line
+psycopg2
+itsdangerous
+click
+Werkzeug
+MarkupSafe
+SQLAlchemy
+flask-sqlalchemy
+alembic
+Mako
+python-editor
+python_dateutil
+six
+Flask-Migrate
