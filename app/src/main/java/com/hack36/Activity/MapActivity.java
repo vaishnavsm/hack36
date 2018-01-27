@@ -68,18 +68,18 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(targetLocation, 16));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(targetLocation, 8));
 
         Location currPosition = MyDatabase.getInstance(getApplicationContext())
                 .locationDao().getAllAfter(System.currentTimeMillis()/1000 - 60*60).get(0); // 1 hr old location
 
         OkHttpClient client = new OkHttpClient();
-        Request request = new Request.Builder()
+        final Request request = new Request.Builder()
                 .url("https://maps.googleapis.com/maps/api/directions/json"+
                         "?origin="+currPosition.getLatitude()+","+currPosition.getLongitude()+
                         "&destination="+targetLocation.latitude+","+targetLocation.longitude+
                         "&key="+getResources().getString(R.string.google_maps_key))
-                .post(null)
+                .get()
                 .addHeader("Cache-Control", "no-cache")
                 .build();
 
@@ -91,18 +91,18 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
 
             @Override
             public void onResponse(Response response) throws IOException {
-                updateMap();
+                updateMap(response.body().string());
             }
         });
     }
 
-    void updateMap(){
+    void updateMap(final String response){
         Handler mainHandler = new Handler(getMainLooper());
 
         mainHandler.post(new Runnable() {
             @Override
             public void run() {
-                new ParserTask().execute();
+                new ParserTask().execute(response);
             }
         });
     }

@@ -2,7 +2,6 @@ package com.hack36.Helpers;
 
 import com.backendless.Backendless;
 import com.backendless.async.callback.AsyncCallback;
-import com.hack36.Utils.Constants;
 
 public class Panic {
     private static final String SERVICE_NAME = "Panic";
@@ -18,9 +17,6 @@ public class Panic {
 
     public static void initApplication() {
         Backendless.setUrl("https://api.backendless.com");
-
-        // if you invoke this sample inside of android application, you should use overloaded "initApp" with "context" argument
-//        Backendless.initApp(Constants.BACKENDLESS_APP_ID, Constants.BACKENDLESS_APP_KEY);
     }
 
     public void panic(java.lang.String userId) {

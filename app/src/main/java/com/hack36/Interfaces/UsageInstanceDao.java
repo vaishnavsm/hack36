@@ -15,8 +15,5 @@ public interface UsageInstanceDao {
     void insertAll(List<UsageInstance> instances);
 
     @Query("SELECT * FROM usage WHERE start_time > :time")
-    List<UsageInstance> getAllAfter(int time);
-
-    @Query("SELECT * FROM usage WHERE start_time > :time")
     List<UsageInstance> getAllAfter(long time);
 }

@@ -15,8 +15,5 @@ public interface LocationDao {
     void insert(Location location);
 
     @Query("SELECT * FROM location WHERE time > :time")
-    List<Location> getAllAfter(int time);
-
-    @Query("SELECT * FROM location WHERE time > :time")
     List<Location> getAllAfter(long time);
 }

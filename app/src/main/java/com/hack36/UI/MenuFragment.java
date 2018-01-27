@@ -1,6 +1,5 @@
 package com.hack36.UI;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -14,12 +13,9 @@ import android.widget.Toast;
 
 import com.backendless.async.callback.AsyncCallback;
 import com.backendless.exceptions.BackendlessFault;
-import com.hack36.Activity.MapActivity;
 import com.hack36.Helpers.AppAuth;
 import com.hack36.Helpers.Panic;
-import com.hack36.Helpers.SharedPrefHelper;
 import com.hack36.R;
-import com.hack36.Utils.Constants;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

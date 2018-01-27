@@ -73,11 +73,15 @@ import static com.hack36.Helpers.UsageStatsHelper.usagePermissionGranted;
 
 public class MainActivity extends AppCompatActivity {
 
+    final int USAGE_STATS = 101;
+    FragmentTransaction ft;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        ft = getSupportFragmentManager().beginTransaction();
         initHelpers();
 
         // Min API is 22, so hv to ask runtime permissions
@@ -86,29 +90,38 @@ public class MainActivity extends AppCompatActivity {
             ActivityCompat.requestPermissions(this, PERMISSIONS, PERMISSIONS_REQUEST);
 
         if (!usagePermissionGranted(this))
-            startActivity(new Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS));
-        else {
-            android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
-            FragmentTransaction ft = fragmentManager.beginTransaction();
+            startActivityForResult(new Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS),USAGE_STATS);
+        else
+            proceedToLogin();
+    }
 
-            if (AppAuth.getInstance().isLoggedIn()) {
-                initServices();
+    void proceedToLogin(){
+        if (AppAuth.getInstance().isLoggedIn()) {
+            initServices();
 
-                // Check whether we had a notification or not
-                if (SharedPrefHelper.getInstance().getBoolean(Constants.PUSH_NOTIFICATION,false)){
-                    startActivity(new Intent(MainActivity.this, MapActivity.class));
+            // Check whether we had a notification or not
+            if (SharedPrefHelper.getInstance().getBoolean(Constants.PUSH_NOTIFICATION,false)){
+                startActivity(new Intent(MainActivity.this, MapActivity.class));
 
-                    // Also set the S.Helper to false for now
-                    SharedPrefHelper.getInstance().put(Constants.PUSH_NOTIFICATION,false);
-                }else {
-                    ft.add(R.id.fragment_container, new MenuFragment());
-                    ft.commit();
-                }
-            } else {
-                ft.add(R.id.fragment_container, new LoginFragment());
+                // Also set the S.Helper to false for now
+                SharedPrefHelper.getInstance().put(Constants.PUSH_NOTIFICATION,false);
+            }else {
+                ft.add(R.id.fragment_container, new MenuFragment());
                 ft.commit();
             }
+        } else {
+            ft.add(R.id.fragment_container, new LoginFragment());
+            ft.commit();
         }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent intent){
+        super.onActivityResult(requestCode,resultCode,intent);
+
+        if (requestCode == USAGE_STATS)
+            proceedToLogin();
+
     }
 
     @Override
@@ -132,7 +145,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void initServices(){
         startService(new Intent(this, RoomLocationService.class));
-        startService(new Intent(this, RoomUsageService.class));
+//        startService(new Intent(this, RoomUsageService.class));
         startService(new Intent(this, AzureDBService.class));
     }
 

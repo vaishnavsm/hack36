@@ -8,6 +8,9 @@
     <color name="light_violet">#4D2677</color>
     <color name="dark_violet">#3A0059</color>
     <color name="med_violet">#DD3A0059</color>
+    <color name="light_blue">#00B8FF</color>
+    <color name="green">#75EA59</color>
+
 
     <!-- Chat Fragment -->
     <color name="send_button_background">#00f</color>

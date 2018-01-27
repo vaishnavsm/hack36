@@ -15,7 +15,7 @@ public class MyTimer implements MyTimerInterface{
     private Handler handler;
     private ArrayList<MyTimerObserver> mObservers;
 
-    private long timerInterval = 24*60*60*1000; // Keeping it 1 day
+    private long timerInterval = 60*1000; // Keeping it 1 day, 1 min now
 
     public static MyTimer getInstance() {
         if (myTimerInstance == null) {

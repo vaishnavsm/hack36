@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Hack36</string>
+    <string name="app_name">Safe Space</string>
     <string name="open_app_usage_setting">Open Apps with usage access settings</string>
     <string name="last_time_used">"Last time used: "</string>
     <string name="time_span">"Time span: "</string>
@@ -14,6 +14,4 @@
         <item>Monthly</item>
         <item>Yearly</item>
     </string-array>
-
-    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyAVEcLEuihmQobta2SljpjUfSBG3nxMAUA</string>
 </resources>

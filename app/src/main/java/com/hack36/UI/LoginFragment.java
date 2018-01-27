@@ -75,12 +75,13 @@ public class LoginFragment extends Fragment{
                                         Backendless.Messaging.registerDevice(Constants.BACKENDLESS_GCM_PUSH_KEY);
 
                                         // This fn will recreate the app too
-                                        storeYearOldData(getActivity().getApplication(), UsageStatsHelper.getInstance().getManager());
+//                                        storeYearOldData(getActivity().getApplication(), UsageStatsHelper.getInstance().getManager());
 
-                                        dialog = new ProgressDialog(getActivity());
-                                        dialog.setMessage("Configuring");
-                                        dialog.setCancelable(false);
-                                        dialog.show();
+                                        getActivity().recreate();
+//                                        dialog = new ProgressDialog(getActivity());
+//                                        dialog.setMessage("Configuring");
+//                                        dialog.setCancelable(false);
+//                                        dialog.show();
                                     }
 
                                     @Override
