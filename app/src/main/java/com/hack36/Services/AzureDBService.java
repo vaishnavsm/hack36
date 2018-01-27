@@ -55,7 +55,7 @@ public class AzureDBService extends Service implements MyTimerObserver {
                     // S.Helper will contain LAST_SYNC_TIME
                     // after configure old app stats call
                     // Its in seconds
-                    long time = SharedPrefHelper.getInstance().getInt(LAST_SYNC_TIME,-1);
+                    int time = SharedPrefHelper.getInstance().getInt(LAST_SYNC_TIME,-1);
 
                     List<UsageInstance> usageInstances =
                             MyDatabase.getInstance(getApplicationContext())

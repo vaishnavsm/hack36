@@ -8,8 +8,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.Toast;
 
-import com.hack36.Models.Personality;
 import com.hack36.R;
 
 import butterknife.BindView;
@@ -18,8 +19,10 @@ import butterknife.ButterKnife;
 public class MenuFragment extends Fragment implements View.OnClickListener{
 
     @BindView(R.id.buttonElizaFragment) Button elizaFragment;
-    @BindView(R.id.buttonUsageFragment) Button usageFragment;
-    @BindView(R.id.buttonCallFragment) Button callLogFragment;
+    @BindView(R.id.rippleLayout) RippleBackground rippleBackground;
+    @BindView(R.id.heartImageButton) ImageButton imageButton;
+//    @BindView(R.id.buttonUsageFragment) Button usageFragment;
+//    @BindView(R.id.buttonCallFragment) Button callLogFragment;
     @BindView(R.id.buttonPersonality) Button callPersonality;
 
     @Override
@@ -29,10 +32,18 @@ public class MenuFragment extends Fragment implements View.OnClickListener{
         ButterKnife.bind(this,rootView);
 
         elizaFragment.setOnClickListener(this);
-        usageFragment.setOnClickListener(this);
-        callLogFragment.setOnClickListener(this);
+//        usageFragment.setOnClickListener(this);
+//        callLogFragment.setOnClickListener(this);
         callPersonality.setOnClickListener(this);
 
+        rippleBackground.startRippleAnimation();
+
+        imageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getContext(),"To be added",Toast.LENGTH_LONG).show();
+            }
+        });
         return rootView;
     }
 
@@ -41,11 +52,11 @@ public class MenuFragment extends Fragment implements View.OnClickListener{
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
         switch (view.getId()){
-            case R.id.buttonUsageFragment:
-                UsageStatsFragment fragment = new UsageStatsFragment();
-                fragmentTransaction.replace(R.id.fragment_container, fragment, fragment.toString());
-                fragmentTransaction.addToBackStack(fragment.toString());
-                break;
+//            case R.id.buttonUsageFragment:
+//                UsageStatsFragment fragment = new UsageStatsFragment();
+//                fragmentTransaction.replace(R.id.fragment_container, fragment, fragment.toString());
+//                fragmentTransaction.addToBackStack(fragment.toString());
+//                break;
 
             case R.id.buttonElizaFragment:
                 ChatFragment fragment2 = new ChatFragment();
@@ -53,11 +64,11 @@ public class MenuFragment extends Fragment implements View.OnClickListener{
                 fragmentTransaction.addToBackStack(fragment2.toString());
                 break;
 
-            case R.id.buttonCallFragment:
-                CallLogFragment fragment3 = new CallLogFragment();
-                fragmentTransaction.replace(R.id.fragment_container, fragment3, fragment3.toString());
-                fragmentTransaction.addToBackStack(fragment3.toString());
-                break;
+//            case R.id.buttonCallFragment:
+//                CallLogFragment fragment3 = new CallLogFragment();
+//                fragmentTransaction.replace(R.id.fragment_container, fragment3, fragment3.toString());
+//                fragmentTransaction.addToBackStack(fragment3.toString());
+//                break;
 
             case R.id.buttonPersonality:
                 PersonalityFragment fragment4 = new PersonalityFragment();

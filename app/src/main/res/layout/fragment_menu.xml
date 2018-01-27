@@ -1,32 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    android:orientation="vertical"
+<LinearLayout android:orientation="vertical"
+    android:weightSum="4"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <Button
-        android:id="@+id/buttonUsageFragment"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Usage Stats"/>
+    <!--<Button-->
+        <!--android:id="@+id/buttonUsageFragment"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="Usage Stats"/>-->
 
-    <Button
-        android:id="@+id/buttonElizaFragment"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Chat with Eliza"/>
+    <!--<Button-->
+        <!--android:id="@+id/buttonCallFragment"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="Read your call logs"/>-->
 
-    <Button
-        android:id="@+id/buttonCallFragment"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Read your call logs"/>
+    <com.hack36.UI.RippleBackground
+        android:id="@+id/rippleLayout"
+        android:layout_weight="3"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="0dp">
 
-    <Button
-        android:id="@+id/buttonPersonality"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Get my persona"/>
+        <ImageButton
+            android:id="@+id/heartImageButton"
+            android:background="@android:color/transparent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/heart"/>
+
+    </com.hack36.UI.RippleBackground>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:layout_weight="1"
+            android:id="@+id/buttonElizaFragment"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="Chat with Eliza"/>
+
+        <Button
+            android:layout_weight="1"
+            android:id="@+id/buttonPersonality"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="Get my persona"/>
+    </LinearLayout>
+
 
 </LinearLayout>
