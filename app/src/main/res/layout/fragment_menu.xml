@@ -17,4 +17,16 @@
         android:layout_height="wrap_content"
         android:text="Chat with Eliza"/>
 
+    <Button
+        android:id="@+id/buttonCallFragment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Read your call logs"/>
+
+    <Button
+        android:id="@+id/buttonPersonality"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Get my persona"/>
+
 </LinearLayout>

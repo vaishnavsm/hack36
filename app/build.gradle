@@ -40,4 +40,7 @@ dependencies {
 
     // azure mobile services
     compile 'com.microsoft.azure:azure-mobile-android:3.4.0'
+
+    // Json Adapters
+    compile 'com.squareup.moshi:moshi:1.5.0'
 }

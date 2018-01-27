@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.hack36.Models.Personality;
 import com.hack36.R;
 
 import butterknife.BindView;
@@ -18,6 +19,8 @@ public class MenuFragment extends Fragment implements View.OnClickListener{
 
     @BindView(R.id.buttonElizaFragment) Button elizaFragment;
     @BindView(R.id.buttonUsageFragment) Button usageFragment;
+    @BindView(R.id.buttonCallFragment) Button callLogFragment;
+    @BindView(R.id.buttonPersonality) Button callPersonality;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -27,6 +30,8 @@ public class MenuFragment extends Fragment implements View.OnClickListener{
 
         elizaFragment.setOnClickListener(this);
         usageFragment.setOnClickListener(this);
+        callLogFragment.setOnClickListener(this);
+        callPersonality.setOnClickListener(this);
 
         return rootView;
     }
@@ -37,7 +42,7 @@ public class MenuFragment extends Fragment implements View.OnClickListener{
 
         switch (view.getId()){
             case R.id.buttonUsageFragment:
-                ListDetailsFragment fragment = new ListDetailsFragment();
+                UsageStatsFragment fragment = new UsageStatsFragment();
                 fragmentTransaction.replace(R.id.fragment_container, fragment, fragment.toString());
                 fragmentTransaction.addToBackStack(fragment.toString());
                 break;
@@ -46,6 +51,18 @@ public class MenuFragment extends Fragment implements View.OnClickListener{
                 ChatFragment fragment2 = new ChatFragment();
                 fragmentTransaction.replace(R.id.fragment_container, fragment2, fragment2.toString());
                 fragmentTransaction.addToBackStack(fragment2.toString());
+                break;
+
+            case R.id.buttonCallFragment:
+                CallLogFragment fragment3 = new CallLogFragment();
+                fragmentTransaction.replace(R.id.fragment_container, fragment3, fragment3.toString());
+                fragmentTransaction.addToBackStack(fragment3.toString());
+                break;
+
+            case R.id.buttonPersonality:
+                PersonalityFragment fragment4 = new PersonalityFragment();
+                fragmentTransaction.replace(R.id.fragment_container, fragment4, fragment4.toString());
+                fragmentTransaction.addToBackStack(fragment4.toString());
                 break;
         }
 
