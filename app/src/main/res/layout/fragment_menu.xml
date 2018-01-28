@@ -41,7 +41,7 @@
             android:layout_width="0dp"
             android:gravity="center"
             android:padding="@dimen/margin_small"
-            android:background="@color/dark_violet"
+            android:background="#40054A"
             android:layout_height="match_parent">
             <RelativeLayout
                 android:paddingTop="@dimen/margin_small"
@@ -74,7 +74,7 @@
             android:layout_width="0dp"
             android:gravity="center"
             android:padding="@dimen/margin_small"
-            android:background="@color/med_violet"
+            android:background="#2A0457"
             android:layout_height="match_parent">
 
             <RelativeLayout
@@ -98,7 +98,7 @@
                 android:layout_height="wrap_content"
                 android:textColor="@android:color/white"
                 android:textAllCaps="true"
-                android:text="Eliza"/>
+                android:text="Chat"/>
         </LinearLayout>
     </LinearLayout>
 

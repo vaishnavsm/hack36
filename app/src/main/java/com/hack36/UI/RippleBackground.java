@@ -53,9 +53,9 @@ public class RippleBackground extends RelativeLayout {
         // NOTE Ripple Props
         int rippleColor = getContext().getResources().getColor(R.color.colorAccent);
         rippleStrokeWidth= 2;
-        float rippleRadius = 100;
-        int rippleDurationTime = 2000;
-        int rippleAmount = 2; // 6 later
+        float rippleRadius = 80;
+        int rippleDurationTime = 4000;
+        int rippleAmount = 3; // 6 later
         float rippleScale = 6;
 
         int rippleDelay = rippleDurationTime / rippleAmount;

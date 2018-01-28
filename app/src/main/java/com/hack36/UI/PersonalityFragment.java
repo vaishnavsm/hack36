@@ -1,5 +1,6 @@
 package com.hack36.UI;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -28,11 +29,19 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import lecho.lib.hellocharts.gesture.ZoomType;
+import lecho.lib.hellocharts.model.PieChartData;
+import lecho.lib.hellocharts.model.SliceValue;
+import lecho.lib.hellocharts.view.LineChartView;
+import lecho.lib.hellocharts.view.PieChartView;
 
 import static com.hack36.Utils.Utils.myLog;
 
 public class PersonalityFragment extends Fragment{
-    @BindView(R.id.generic_list_view) ListView listView;
+//    @BindView(R.id.generic_list_view) ListView listView;
+    @BindView(R.id.chart) PieChartView pieChartView;
+
+    ProgressDialog dialog;
 
     public PersonalityFragment() {}
 
@@ -47,6 +56,11 @@ public class PersonalityFragment extends Fragment{
     }
 
     private void initUI() {
+
+        dialog = new ProgressDialog(getContext());
+        dialog.setMessage("Fetching Insights");
+        dialog.setCancelable(false);
+        dialog.show();
 
         final String text = "One day, my friend and colleague (a black woman) and I were sitting in a room with two white women while our clients were in groups. The supervisor stopped by and greeted the white women before returning to his office, as if my colleague and I were not even present. I later realized that I was not on the supervisor’s list for team emails, and I was missing important updates on my clients. I sent an email to request to be added to the list, our first correspondence ever, occurring nearly two months after me joining the unit.\n" +
                 "\n" +
@@ -76,6 +90,7 @@ public class PersonalityFragment extends Fragment{
             @Override
             public void onFailure(Request request, IOException e) {
                 myLog("Request Failed",request.body());
+                dialog.dismiss();
             }
 
             @Override
@@ -101,6 +116,8 @@ public class PersonalityFragment extends Fragment{
 
                     updateList(traits);
                 }
+
+                dialog.dismiss();
             }
         });
     }
@@ -113,10 +130,24 @@ public class PersonalityFragment extends Fragment{
         mainHandler.post(new Runnable() {
             @Override
             public void run() {
-                ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(),
-                        android.R.layout.simple_list_item_1, android.R.id.text1, traits);
-                listView.setAdapter(adapter);
-                adapter.notifyDataSetChanged();
+
+                pieChartView.setInteractive(true);
+                pieChartView.setZoomEnabled(true);
+                pieChartView.setZoomType(ZoomType.HORIZONTAL_AND_VERTICAL);
+
+                PieChartData data = new PieChartData();
+                List<SliceValue> values = new ArrayList<>();
+                values.add(new SliceValue(traits.indexOf("Values")));
+                values.add(new SliceValue(traits.indexOf("Needs") - traits.indexOf("Values")));
+                values.add(new SliceValue(traits.indexOf("Persona") - traits.indexOf("Needs")));
+                values.add(new SliceValue(traits.size() - traits.indexOf("Persona")));
+
+                data.setValues(values);
+                pieChartView.setPieChartData(data);
+//                ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(),
+//                        android.R.layout.simple_list_item_1, android.R.id.text1, traits);
+//                listView.setAdapter(adapter);
+//                adapter.notifyDataSetChanged();
             }
         });
 

@@ -48,5 +48,7 @@ dependencies {
     // Json Adapters
     compile 'com.squareup.moshi:moshi:1.5.0'
 
+    compile 'com.github.lecho:hellocharts-library:1.5.8@aar'
+
     implementation files('libs/backendless-4.4.0.jar')
 }

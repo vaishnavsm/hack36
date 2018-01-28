@@ -58,6 +58,10 @@ public class LoginFragment extends Fragment{
                     Toast.makeText(getContext(), "No name specified", Toast.LENGTH_LONG).show();
                 else {
                     if (NetworkHelper.getInstance().isNetworkAvailable()) {
+                         dialog = new ProgressDialog(getActivity());
+                         dialog.setMessage("Logging In...");
+                         dialog.setCancelable(false);
+                         dialog.show();
 
                         // login the user
                         Backendless.UserService.login(userName.getText().toString(),
@@ -77,16 +81,14 @@ public class LoginFragment extends Fragment{
                                         // This fn will recreate the app too
 //                                        storeYearOldData(getActivity().getApplication(), UsageStatsHelper.getInstance().getManager());
 
+                                        dialog.dismiss();
                                         getActivity().recreate();
-//                                        dialog = new ProgressDialog(getActivity());
-//                                        dialog.setMessage("Configuring");
-//                                        dialog.setCancelable(false);
-//                                        dialog.show();
                                     }
 
                                     @Override
                                     public void handleFault(BackendlessFault backendlessFault) {
                                         Toast.makeText(getContext(), "Login Fault", Toast.LENGTH_LONG).show();
+                                        dialog.dismiss();
                                     }
                                 },true);
                     }
