@@ -1,14 +1,13 @@
 package com.hack36.UI;
 
 import android.app.ProgressDialog;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
 
 import com.hack36.Models.BigFiveTraits;
 import com.hack36.Models.Personality;
@@ -29,16 +28,13 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import lecho.lib.hellocharts.gesture.ZoomType;
 import lecho.lib.hellocharts.model.PieChartData;
 import lecho.lib.hellocharts.model.SliceValue;
-import lecho.lib.hellocharts.view.LineChartView;
 import lecho.lib.hellocharts.view.PieChartView;
 
 import static com.hack36.Utils.Utils.myLog;
 
 public class PersonalityFragment extends Fragment{
-//    @BindView(R.id.generic_list_view) ListView listView;
     @BindView(R.id.chart) PieChartView pieChartView;
 
     ProgressDialog dialog;
@@ -48,7 +44,7 @@ public class PersonalityFragment extends Fragment{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_list_details, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_charts, container, false);
         ButterKnife.bind(this,rootView);
 
         initUI();
@@ -99,23 +95,8 @@ public class PersonalityFragment extends Fragment{
                 JsonAdapter<Personality> jsonAdapter = moshi.adapter(Personality.class);
 
                 Personality personality = jsonAdapter.fromJson(response.body().string());
-                if (personality != null){
-                    List<String> traits = new ArrayList<>();
-
-                    traits.add("Values");
-                    for (Trait t: personality.getValues())
-                        traits.add(t.getName()+"-"+t.getPercentile());
-
-                    traits.add("Needs");
-                    for (Trait t: personality.getNeeds())
-                        traits.add(t.getName()+"-"+t.getPercentile());
-
-                    traits.add("Persona");
-                    for (BigFiveTraits b: personality.getPersonality())
-                        traits.add(b.getName()+"-"+b.getPercentile());
-
-                    updateList(traits);
-                }
+                if (personality != null)
+                    updateList(personality);
 
                 dialog.dismiss();
             }
@@ -124,7 +105,7 @@ public class PersonalityFragment extends Fragment{
 
     // I don't know why it fails
     // Due to some threading
-    void updateList(final List<String> traits){
+    void updateList(final Personality personality){
         Handler mainHandler = new Handler(getContext().getMainLooper());
 
         mainHandler.post(new Runnable() {
@@ -132,22 +113,39 @@ public class PersonalityFragment extends Fragment{
             public void run() {
 
                 pieChartView.setInteractive(true);
-                pieChartView.setZoomEnabled(true);
-                pieChartView.setZoomType(ZoomType.HORIZONTAL_AND_VERTICAL);
 
                 PieChartData data = new PieChartData();
                 List<SliceValue> values = new ArrayList<>();
-                values.add(new SliceValue(traits.indexOf("Values")));
-                values.add(new SliceValue(traits.indexOf("Needs") - traits.indexOf("Values")));
-                values.add(new SliceValue(traits.indexOf("Persona") - traits.indexOf("Needs")));
-                values.add(new SliceValue(traits.size() - traits.indexOf("Persona")));
+
+                for (Trait t: personality.getNeeds()) {
+                    SliceValue sliceValue = new SliceValue();
+                    sliceValue.setColor(Color.GREEN);
+                    sliceValue.setLabel(t.getName());
+                    sliceValue.setValue(t.getPercentile());
+                    values.add(sliceValue);
+                }
+
+                for (Trait t: personality.getValues()) {
+                    SliceValue sliceValue = new SliceValue();
+                    sliceValue.setColor(Color.BLUE);
+                    sliceValue.setLabel(t.getName());
+                    sliceValue.setValue(t.getPercentile());
+                    values.add(sliceValue);
+                }
+
+                for (BigFiveTraits b: personality.getPersonality()) {
+                    SliceValue sliceValue3 = new SliceValue();
+                    sliceValue3.setColor(Color.YELLOW);
+                    sliceValue3.setLabel(b.getName());
+                    sliceValue3.setValue(b.getPercentile());
+
+                    values.add(sliceValue3);
+                }
+
 
                 data.setValues(values);
+                data.setHasLabels(true);
                 pieChartView.setPieChartData(data);
-//                ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(),
-//                        android.R.layout.simple_list_item_1, android.R.id.text1, traits);
-//                listView.setAdapter(adapter);
-//                adapter.notifyDataSetChanged();
             }
         });
 

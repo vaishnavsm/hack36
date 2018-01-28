@@ -3,15 +3,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="@dimen/margin_medium">
-    <!--<ListView-->
-        <!--android:id="@+id/generic_list_view"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent"-->
-        <!--android:drawSelectorOnTop="true"-->
-        <!--android:scrollbars="vertical"/>-->
-
-    <lecho.lib.hellocharts.view.PieChartView
-        android:id="@+id/chart"
+    <ListView
+        android:id="@+id/generic_list_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:drawSelectorOnTop="true"
+        android:scrollbars="vertical"/>
 </LinearLayout>
