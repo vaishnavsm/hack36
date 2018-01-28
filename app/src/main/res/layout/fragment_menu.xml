@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical"
+    android:weightSum="4"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_weight="4"
+        android:background="@drawable/background"
+        android:layout_height="0dp">
+        <com.hack36.UI.RippleBackground
+            android:id="@+id/rippleLayout"
+            android:layout_centerInParent="true"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <ImageButton
+            android:id="@+id/heartImageButton"
+            android:background="@android:color/transparent"
+            android:layout_width="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_height="wrap_content"
+            android:src="@drawable/heart"/>
+
+    </RelativeLayout>
+
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:baselineAligned="false">
+        <LinearLayout
+            android:id="@+id/buttonPersonality"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:gravity="center"
+            android:padding="@dimen/margin_small"
+            android:background="#40054A"
+            android:layout_height="match_parent">
+            <RelativeLayout
+                android:paddingTop="@dimen/margin_small"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:layout_centerInParent="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:srcCompat="@drawable/ic_person"/>
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/margin_large"
+                    android:background="@drawable/menu_frag_button1"/>
+            </RelativeLayout>
+            <TextView
+                android:paddingTop="@dimen/margin_small"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/white"
+                android:textAllCaps="true"
+                android:text="Personality"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/buttonElizaFragment"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:gravity="center"
+            android:padding="@dimen/margin_small"
+            android:background="#2A0457"
+            android:layout_height="match_parent">
+
+            <RelativeLayout
+                android:paddingTop="@dimen/margin_small"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:layout_centerInParent="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:srcCompat="@drawable/ic_chat"/>
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/margin_large"
+                    android:background="@drawable/menu_frag_button2"/>
+            </RelativeLayout>
+            <TextView
+                android:paddingTop="@dimen/margin_small"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/white"
+                android:textAllCaps="true"
+                android:text="Chat"/>
+        </LinearLayout>
+    </LinearLayout>
+
+
+</LinearLayout>

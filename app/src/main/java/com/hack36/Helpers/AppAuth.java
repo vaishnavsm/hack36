@@ -30,8 +30,6 @@ public class AppAuth {
     }
 
     public static AppAuth getInstance(){
-        if (instance == null)
-            return null;
         return instance;
     }
 

@@ -3,4 +3,19 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+
+    <!-- Main Activity -->
+    <color name="light_violet">#4D2677</color>
+    <color name="dark_violet">#3A0059</color>
+    <color name="med_violet">#DD3A0059</color>
+    <color name="light_blue">#00B8FF</color>
+    <color name="green">#75EA59</color>
+
+
+    <!-- Chat Fragment -->
+    <color name="send_button_background">#00f</color>
+    <color name="sent_message">#00f</color>
+    <color name="sent_message_color">#fff</color>
+    <color name="received_message">#fff</color>
+    <color name="received_message_color">#121212</color>
 </resources>

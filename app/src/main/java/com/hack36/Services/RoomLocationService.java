@@ -13,6 +13,7 @@ import com.hack36.Models.MyDatabase;
 import needle.Needle;
 
 import static com.hack36.Utils.Constants.TAG;
+import static com.hack36.Utils.Utils.myLog;
 
 /**
  * Handles Recursive API calling
@@ -21,7 +22,7 @@ import static com.hack36.Utils.Constants.TAG;
 public class RoomLocationService extends Service {
 
     private LocationManager mLocationManager = null;
-    private static final int LOCATION_INTERVAL = 60*60*1000; // in millisecs. I'll keep 1 hr
+    private static final int LOCATION_INTERVAL = 30*1000; // in millisecs. I'll keep 1 hr. Now 30 s
     private static final float LOCATION_DISTANCE = 10f;
 
     private class LocationListener implements android.location.LocationListener {
@@ -38,7 +39,7 @@ public class RoomLocationService extends Service {
             Needle.onBackgroundThread().execute(new Runnable() {
                 @Override
                 public void run() {
-                    Log.i(TAG,"Location added at "+l.getTime());
+                    myLog("Location added: "+l.getLatitude() +","+l.getLongitude());
                     MyDatabase
                             .getInstance(getApplicationContext())
                             .locationDao()

@@ -29,13 +29,13 @@ import com.hack36.R;
 import needle.Needle;
 import needle.UiRelatedTask;
 
-public class ListDetailsFragment extends Fragment {
-    @BindView(R.id.list_view_app_usage) ListView listView;
+public class UsageStatsFragment extends Fragment {
+    @BindView(R.id.generic_list_view) ListView listView;
 
     // Managers
     UsageStatsManager mUsageStatsManager;
 
-    public ListDetailsFragment() {}
+    public UsageStatsFragment() {}
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

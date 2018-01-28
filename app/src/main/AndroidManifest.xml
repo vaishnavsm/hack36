@@ -7,12 +7,19 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.PACKAGE_USAGE_STATS"/>
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_CALL_LOG" />
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE"/>
+    <uses-permission android:name="com.hack36.permission.C2D_MESSAGE"/>
+    <permission android:name="com.hack36.permission.C2D_MESSAGE"
+        android:protectionLevel="signature"/>
 
     <uses-permission-sdk-23 android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission-sdk-23 android:name="android.permission.INTERNET" />
     <uses-permission-sdk-23 android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission-sdk-23 android:name="android.permission.PACKAGE_USAGE_STATS"/>
     <uses-permission-sdk-23 android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission-sdk-23 android:name="android.permission.READ_CALL_LOG" />
 
     <application
         android:allowBackup="true"
@@ -21,17 +28,33 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Activity.MainActivity">
+        <activity android:name=".Activity.MainActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/StatusBarOverlay">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
+        <!-- Should be out of activity but inside application-->
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyAVEcLEuihmQobta2SljpjUfSBG3nxMAUA"/>
+        <activity android:name=".Activity.MapActivity" />
         <service android:name=".Services.RoomLocationService" />
         <service android:name=".Services.RoomUsageService" />
         <service android:name=".Services.AzureDBService" />
+
+        <receiver android:name=".Services.MyPushReceiver"
+            android:permission="com.google.android.c2dm.permission.SEND">
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.REGISTRATION"/>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE"/>
+                <category android:name="com.hack36"/>
+            </intent-filter>
+        </receiver>
+        <service android:name=".Services.MyPushService" />
     </application>
 
 </manifest>

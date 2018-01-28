@@ -9,8 +9,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Toast;
 
+import com.backendless.Backendless;
 import com.hack36.Helpers.AppAuth;
 import com.hack36.Helpers.AzureDBHelper;
+import com.hack36.Helpers.Panic;
 import com.hack36.Helpers.UsageStatsHelper;
 import com.hack36.Models.MyDatabase;
 import com.hack36.Helpers.NetworkHelper;
@@ -19,10 +21,15 @@ import com.hack36.Services.AzureDBService;
 import com.hack36.Services.RoomLocationService;
 import com.hack36.Services.MyTimer;
 import com.hack36.Services.RoomUsageService;
-import com.hack36.UI.ListDetailsFragment;
 import com.hack36.UI.LoginFragment;
 import com.hack36.R;
+import com.hack36.UI.MenuFragment;
+import com.hack36.Utils.Constants;
 
+import java.util.Collections;
+
+import static com.hack36.Utils.Constants.BACKENDLESS_APP_ID;
+import static com.hack36.Utils.Constants.BACKENDLESS_APP_KEY;
 import static com.hack36.Utils.Constants.PERMISSIONS;
 import static com.hack36.Utils.Constants.PERMISSIONS_REQUEST;
 import static com.hack36.Helpers.UsageStatsHelper.usagePermissionGranted;
@@ -66,11 +73,15 @@ import static com.hack36.Helpers.UsageStatsHelper.usagePermissionGranted;
 
 public class MainActivity extends AppCompatActivity {
 
+    final int USAGE_STATS = 101;
+    FragmentTransaction ft;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        ft = getSupportFragmentManager().beginTransaction();
         initHelpers();
 
         // Min API is 22, so hv to ask runtime permissions
@@ -79,20 +90,38 @@ public class MainActivity extends AppCompatActivity {
             ActivityCompat.requestPermissions(this, PERMISSIONS, PERMISSIONS_REQUEST);
 
         if (!usagePermissionGranted(this))
-            startActivity(new Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS));
-        else {
-            android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
-            FragmentTransaction ft = fragmentManager.beginTransaction();
+            startActivityForResult(new Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS),USAGE_STATS);
+        else
+            proceedToLogin();
+    }
 
-            if (AppAuth.getInstance().isLoggedIn()) {
-                initServices();
-                ft.add(R.id.fragment_container, new ListDetailsFragment());
-                ft.commit();
-            } else {
-                ft.add(R.id.fragment_container, new LoginFragment());
+    void proceedToLogin(){
+        if (AppAuth.getInstance().isLoggedIn()) {
+            initServices();
+
+            // Check whether we had a notification or not
+            if (SharedPrefHelper.getInstance().getBoolean(Constants.PUSH_NOTIFICATION,false)){
+                startActivity(new Intent(MainActivity.this, MapActivity.class));
+
+                // Also set the S.Helper to false for now
+                SharedPrefHelper.getInstance().put(Constants.PUSH_NOTIFICATION,false);
+            }else {
+                ft.add(R.id.fragment_container, new MenuFragment());
                 ft.commit();
             }
+        } else {
+            ft.add(R.id.fragment_container, new LoginFragment());
+            ft.commit();
         }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent intent){
+        super.onActivityResult(requestCode,resultCode,intent);
+
+        if (requestCode == USAGE_STATS)
+            proceedToLogin();
+
     }
 
     @Override
@@ -111,13 +140,12 @@ public class MainActivity extends AppCompatActivity {
                 recreate();
             else
                 finish();
-
         }
     }
 
     private void initServices(){
         startService(new Intent(this, RoomLocationService.class));
-        startService(new Intent(this, RoomUsageService.class));
+//        startService(new Intent(this, RoomUsageService.class));
         startService(new Intent(this, AzureDBService.class));
     }
 
@@ -130,5 +158,16 @@ public class MainActivity extends AppCompatActivity {
         AzureDBHelper.getInstance(this);
         AppAuth.getInstance(this);
         NetworkHelper.getInstance(this);
+
+        // Necessary for login
+        Backendless.initApp( this, BACKENDLESS_APP_ID, BACKENDLESS_APP_KEY);
+
+        // For Panic Button
+        Panic.initApplication();
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
     }
 }
