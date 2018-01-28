@@ -1,7 +1,0 @@
-- alias: hasura
-  config:
-    configmap: controller-conf
-    namespace: hasura
-  data: null
-  kubeContext: bacteriologic94
-  name: bacteriologic94

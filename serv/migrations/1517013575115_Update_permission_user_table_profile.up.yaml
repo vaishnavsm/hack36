@@ -1,8 +1,0 @@
-- args:
-    permission:
-      check:
-        hasura_id:
-          $eq: X-HASURA-USER-ID
-    role: user
-    table: profile
-  type: create_insert_permission

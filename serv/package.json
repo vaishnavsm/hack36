@@ -1,0 +1,16 @@
+{
+  "name": "Hack36Space-servercode",
+  "version": "1.0.0",
+  "scripts": {
+    "debug": "coderunner debug",
+    "deploy": "coderunner deploy"
+  },
+  "devDependencies": {
+    "backendless-coderunner": "^4.4.0"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "request": "^2.83.0",
+    "request-promise": "^4.2.2"
+  }
+}
